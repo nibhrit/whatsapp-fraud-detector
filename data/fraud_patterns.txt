@@ -1,0 +1,137 @@
+WhatsApp Fraud Pattern Library — v1
+=====================================
+5 categories · 21 sub-patterns
+Last updated: June 2026
+
+This file is the human-readable reference for the fraud patterns loaded into ChromaDB.
+The structured version lives in backend/fraud_patterns.py.
+
+───────────────────────────────────────
+CATEGORY 1: UPI / KYC Fraud
+───────────────────────────────────────
+
+PATTERN: KYC Expiry Threat
+Fraudster claims the user's KYC is expiring and their UPI or bank account will be blocked
+unless they update immediately. Creates urgency with a short deadline. Shares a phishing
+link or asks for Aadhaar/PAN numbers directly.
+Key phrases: "KYC expiring", "account will be blocked", "update within 24 hours", "click to complete KYC"
+
+PATTERN: Electricity Bill Cutoff Threat
+Fraudster poses as an electricity board (BESCOM, MSEB, etc.) claiming the user's power
+will be disconnected due to a pending bill or KYC issue. Sends a phone number to call
+or a UPI link to pay immediately.
+Key phrases: "bijli connection katega", "electricity disconnected tonight", "pay immediately", "update meter KYC"
+
+PATTERN: Bank Account Blocked
+Fraudster impersonates a bank, claiming the account has been temporarily blocked due to
+suspicious activity or failed KYC. Asks user to click a link or call a number to unblock.
+Key phrases: "account has been blocked", "suspicious transaction", "verify identity", "account will be permanently closed"
+
+PATTERN: Refund Pending Scam
+Fraudster tells the user a refund is pending and they need to enter their UPI PIN to receive
+it. This is reverse psychology — instead of sending money to the user, the fraudster tricks
+them into approving an outgoing payment request.
+Key phrases: "refund of Rs X is pending", "enter UPI PIN to receive", "click here to claim refund"
+
+PATTERN: Payment Failed Recovery
+Fraudster claims a recent payment failed and offers a link to retry or claim cashback.
+The link leads to a fake payment page that captures UPI credentials.
+Key phrases: "your recent payment failed", "click to retry", "cashback pending", "transaction incomplete"
+
+───────────────────────────────────────
+CATEGORY 2: Fake Job Offers
+───────────────────────────────────────
+
+PATTERN: Work From Home High Pay
+Fraudster offers an unrealistically high-paying work-from-home job requiring no experience
+or qualifications. May ask for a registration fee or security deposit upfront.
+Key phrases: "earn 50000 per month from home", "no experience needed", "work 2 hours a day", "registration fee refundable"
+
+PATTERN: Government Job Guarantee
+Fraudster claims to offer a guaranteed government job (UPSC, SSC, railway, police) in
+exchange for a processing or registration fee. Impersonates official government agencies.
+Key phrases: "government job guarantee", "UPSC vacancy", "railway recruitment", "guaranteed selection", "pay processing fee"
+
+PATTERN: Data Entry / Mobile Task Job
+Fraudster offers simple typing, data entry, or like/subscribe tasks doable on mobile.
+Pays small amounts initially to build trust, then asks for an investment to unlock higher-paying tasks.
+Key phrases: "simple typing job", "like and earn money", "Rs 500 per hour", "easy task", "subscribe and get paid"
+
+PATTERN: HR Impersonation
+Fraudster poses as HR from a reputable company (Infosys, TCS, Amazon), claims the user
+has been selected for a job, and asks for a security deposit or training fee.
+Key phrases: "selected for the post", "send joining fee", "training charges", "security deposit refundable", "offer letter"
+
+───────────────────────────────────────
+CATEGORY 3: Lottery / Prize Scams
+───────────────────────────────────────
+
+PATTERN: Lucky Draw Winner
+Fraudster claims the user has won a prize (iPhone, car, cash) in a lucky draw they never
+entered. Asks for a processing fee or personal details to release the prize.
+Key phrases: "congratulations you have won", "lucky draw winner", "claim your iPhone", "processing fee to release prize"
+
+PATTERN: KBC / TV Show Winner
+Fraudster impersonates KBC (Kaun Banega Crorepati) or another popular TV show, claiming
+the user's phone number was randomly selected as a winner. Asks for tax or processing fee
+before releasing prize money.
+Key phrases: "KBC lottery winner", "Amitabh Bachchan", "winning amount", "pay tax to claim", "your number selected"
+
+PATTERN: Survey Reward Scam
+Fraudster asks the user to complete a short survey and promises a cash reward. Collects
+personal data and then asks for bank details to transfer the reward.
+Key phrases: "complete survey and earn", "Rs 5000 reward", "2-minute survey", "fill form and get paid"
+
+PATTERN: Gift Card / Voucher Winner
+Fraudster claims the user has won a gift card or voucher from Amazon or Flipkart. Collects
+details and asks for a small fee or OTP to activate the voucher.
+Key phrases: "Amazon gift card winner", "Flipkart voucher", "Rs 10000 coupon", "activate your reward"
+
+───────────────────────────────────────
+CATEGORY 4: Bank Impersonation
+───────────────────────────────────────
+
+PATTERN: OTP Request
+Fraudster poses as a bank employee or customer support agent, claims there is a security
+issue, and asks the user to share the OTP received on their phone.
+Key phrases: "share the OTP", "verify your account", "bank customer care", "OTP for security check"
+
+PATTERN: Card Blocked Alert
+Fraudster sends an urgent message claiming the user's debit or credit card has been blocked.
+Asks the user to call a number or click a link to unblock. The contact connects to the fraudster.
+Key phrases: "your card has been blocked", "call immediately", "card expired", "reactivate your card"
+
+PATTERN: Account Suspended Notice
+Fraudster impersonates a bank, claiming the user's account has been suspended due to KYC
+mismatch, suspicious activity, or a regulatory requirement. Creates panic to trigger
+impulsive action.
+Key phrases: "account suspended", "KYC mismatch", "regulatory requirement", "account will be closed", "verify within 24 hours"
+
+PATTERN: RBI / Legal Threat
+Fraudster poses as an RBI official or legal authority, claiming the user's account has been
+flagged for illegal activity and they must pay a fine or face arrest.
+Key phrases: "RBI notice", "legal action", "account under investigation", "pay penalty", "CBI arrest warrant"
+
+───────────────────────────────────────
+CATEGORY 5: Investment Fraud
+───────────────────────────────────────
+
+PATTERN: Guaranteed High Returns
+Fraudster promises guaranteed high returns in a short time. No legitimate investment
+guarantees returns. Common in pyramid schemes and fake trading platforms.
+Key phrases: "double your money", "500% returns", "guaranteed profit", "invest 1000 get 2000", "risk-free investment"
+
+PATTERN: Crypto Trading Group
+Fraudster invites user to a WhatsApp or Telegram group where a 'trading expert' gives tips.
+Initially shows fake profits to build trust, then asks for an investment which is stolen.
+Key phrases: "join crypto group", "trading signals", "expert trader", "invest in Bitcoin", "guaranteed crypto returns"
+
+PATTERN: Stock Market Insider Tip
+Fraudster claims to have insider information on stocks that will give guaranteed returns.
+Asks user to invest through their platform or a link.
+Key phrases: "insider tip", "stock will 10x", "buy this share now", "secret stock tip", "made 10 lakh last month"
+
+PATTERN: MLM / Pyramid Scheme
+Fraudster promotes a multi-level marketing scheme promising passive income through referrals.
+User earns by recruiting others, not from any real product or service.
+Key phrases: "passive income", "earn by referring", "network marketing", "join team and earn daily", "downline earnings"

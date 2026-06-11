@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ChromaDB — generated at runtime on every server start, never committed
+backend/chroma_db/
+
+# Environment variables — API keys live here, never commit
+.env
+backend/.env
+
+# macOS
+.DS_Store

@@ -1,0 +1,212 @@
+[
+  {
+    "id": "fraud_01",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "UPI / KYC Fraud",
+    "message": "Your KYC has not been updated. Your UPI account will be blocked in 24 hours. Update now: http://kyc-update.in/verify"
+  },
+  {
+    "id": "fraud_02",
+    "expected": "FRAUD",
+    "language": "hindi",
+    "category": "UPI / KYC Fraud",
+    "message": "Aapka bijli connection aaj raat 9 baje band ho jayega. Unpaid bill ke karan. Turant is number pe call karein: 9876543210"
+  },
+  {
+    "id": "fraud_03",
+    "expected": "FRAUD",
+    "language": "hinglish",
+    "category": "UPI / KYC Fraud",
+    "message": "Dear customer, aapka SBI account suspicious activity ki wajah se block ho gaya hai. Unblock karne ke liye yahan click karein: http://sbi-verify.co.in"
+  },
+  {
+    "id": "fraud_04",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "UPI / KYC Fraud",
+    "message": "A refund of Rs 1,842 is pending in your account from Flipkart. Enter your UPI PIN on this link to receive: http://flipkart-refund.xyz"
+  },
+  {
+    "id": "fraud_05",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "Fake Job Offers",
+    "message": "Urgent hiring! Work from home. Earn Rs 40,000/month. No experience needed. Simple data entry. Pay Rs 299 registration fee to get started."
+  },
+  {
+    "id": "fraud_06",
+    "expected": "FRAUD",
+    "language": "hinglish",
+    "category": "Fake Job Offers",
+    "message": "Sarkari naukri guaranteed! Railway department mein 500 vacancies hain. Selection pakka. Abhi Rs 500 registration fee bhejein aur form submit karein."
+  },
+  {
+    "id": "fraud_07",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "Fake Job Offers",
+    "message": "Hi, I am Priya from Amazon HR. You have been shortlisted for a Work From Home role. Salary: Rs 55,000/month. Kindly pay Rs 1,000 security deposit to confirm your seat."
+  },
+  {
+    "id": "fraud_08",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "Fake Job Offers",
+    "message": "Simple mobile task job. Like YouTube videos and earn Rs 600 per hour. Work from anywhere. No experience. First task is free. Pay Rs 200 to unlock premium tasks."
+  },
+  {
+    "id": "fraud_09",
+    "expected": "FRAUD",
+    "language": "hinglish",
+    "category": "Lottery / Prize Scams",
+    "message": "Congratulations! Aapne hamare Diwali lucky draw mein Rs 10 lakh jeete hain! Prize claim karne ke liye abhi call karein: 8899XXXXXX. Offer sirf 24 ghante tak valid hai."
+  },
+  {
+    "id": "fraud_10",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "Lottery / Prize Scams",
+    "message": "You have won an iPhone 15 Pro in our annual lucky draw. Your number was randomly selected. To claim your prize, pay Rs 500 shipping charges to: UPI ID fraud@ybl"
+  },
+  {
+    "id": "fraud_11",
+    "expected": "FRAUD",
+    "language": "hindi",
+    "category": "Lottery / Prize Scams",
+    "message": "KBC lottery: Aapka number select hua hai aur aap Rs 25 lakh jeete hain. Prize release karne ke liye Rs 2,000 processing fee bhejein. Amitabh Bachchan ka special show."
+  },
+  {
+    "id": "fraud_12",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "Bank Impersonation",
+    "message": "This is HDFC Bank customer care. Your account has been temporarily blocked due to suspicious activity. Please share the OTP we just sent to restore full access immediately."
+  },
+  {
+    "id": "fraud_13",
+    "expected": "FRAUD",
+    "language": "hinglish",
+    "category": "Bank Impersonation",
+    "message": "Aapka credit card block ho gaya hai ek suspicious transaction ki wajah se. Account reactivate karne ke liye turant call karein: 1800-XXX-0000. 2 ghante mein card permanently band ho jayega."
+  },
+  {
+    "id": "fraud_14",
+    "expected": "FRAUD",
+    "language": "hindi",
+    "category": "Bank Impersonation",
+    "message": "RBI ki taraf se notice: Aapke account mein illegal transactions detect hui hain. Rs 5,000 penalty bhejein warna aapke khilaf legal case file hoga. Turant response karein."
+  },
+  {
+    "id": "fraud_15",
+    "expected": "FRAUD",
+    "language": "english",
+    "category": "Investment Fraud",
+    "message": "Join our elite trading group! Guaranteed 200% returns in 30 days. 500 members have already profited. Expert crypto trader. Send Rs 2,000 to join. Limited slots remaining."
+  },
+  {
+    "id": "legit_01",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Casual / Personal",
+    "message": "Hey, are we still meeting at 7? I might be about 10 minutes late. Traffic on the highway."
+  },
+  {
+    "id": "legit_02",
+    "expected": "LEGITIMATE",
+    "language": "hinglish",
+    "category": "Casual / Personal",
+    "message": "Bhai aaj kya plan hai? Movie dekhne chalein kya? Pathaan aa gayi hai theatre mein."
+  },
+  {
+    "id": "legit_03",
+    "expected": "LEGITIMATE",
+    "language": "hindi",
+    "category": "Casual / Personal",
+    "message": "Mummy, main kal ghar aa raha hoon. Khana mat banana, main bahar se kuch le aaunga. Raat ko 9 baje pahunch jaunga."
+  },
+  {
+    "id": "legit_04",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Casual / Personal",
+    "message": "Happy birthday! Hope you have a wonderful day. Let's plan something for the weekend to celebrate."
+  },
+  {
+    "id": "legit_05",
+    "expected": "LEGITIMATE",
+    "language": "hinglish",
+    "category": "Casual / Personal",
+    "message": "Yaar exam ki preparation kaisi chal rahi hai? Koi notes chahiye toh bata, mere paas microeconomics ke notes hain."
+  },
+  {
+    "id": "legit_06",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Service / Transactional",
+    "message": "Your OTP for PhonePe transaction is 634821. Valid for 10 minutes. Do not share this OTP with anyone."
+  },
+  {
+    "id": "legit_07",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Service / Transactional",
+    "message": "Your Uber ride is arriving in 3 minutes. Driver: Ramesh Kumar. Vehicle: Swift Dzire, KA05AB1234. You can track in the app."
+  },
+  {
+    "id": "legit_08",
+    "expected": "LEGITIMATE",
+    "language": "hinglish",
+    "category": "Service / Transactional",
+    "message": "Zomato: Aapka order confirm ho gaya! Estimated delivery 30-40 minutes. Koi problem ho toh app mein track karein ya humse contact karein."
+  },
+  {
+    "id": "legit_09",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Service / Transactional",
+    "message": "Amazon: Your package (Order #402-XXXXXX) has been shipped and is on its way. Expected delivery: tomorrow by 8 PM."
+  },
+  {
+    "id": "legit_10",
+    "expected": "LEGITIMATE",
+    "language": "hindi",
+    "category": "Service / Transactional",
+    "message": "IRCTC: Aapki booking confirm ho gayi hai. PNR: 123-4567890. Train: Rajdhani Express. Yatra ki shubhkamnayein!"
+  },
+  {
+    "id": "legit_11",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Professional / Reminder",
+    "message": "Hi, this is Dr. Sharma's clinic calling. Your appointment is confirmed for tomorrow at 11 AM. Please arrive 10 minutes early."
+  },
+  {
+    "id": "legit_12",
+    "expected": "LEGITIMATE",
+    "language": "hinglish",
+    "category": "Professional / Reminder",
+    "message": "Sir, aaj ki meeting ka time change hua hai. Ab 3 baje hogi instead of 2. Please confirm kar dena."
+  },
+  {
+    "id": "legit_13",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Professional / Reminder",
+    "message": "Your order at Myntra has been successfully cancelled as requested. Refund of Rs 1,299 will reflect in your account within 5-7 business days."
+  },
+  {
+    "id": "legit_14",
+    "expected": "LEGITIMATE",
+    "language": "hindi",
+    "category": "Professional / Reminder",
+    "message": "Kal ka lecture subah 10 baje hai. Late mat aana, professor attendance ke liye strict hain. Notes bhi saath laana."
+  },
+  {
+    "id": "legit_15",
+    "expected": "LEGITIMATE",
+    "language": "english",
+    "category": "Professional / Reminder",
+    "message": "Reminder: Your electricity bill of Rs 1,240 is due on the 15th. You can pay via the BESCOM mobile app, website, or any authorised payment centre."
+  }
+]
