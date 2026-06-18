@@ -10,5 +10,8 @@ backend/chroma_db/
 .env
 backend/.env
 
+# Claude Code
+.claude/
+
 # macOS
 .DS_Store
