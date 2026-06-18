@@ -31,12 +31,12 @@ Rules:
 - SUSPICIOUS: confidence 40–74, or the message has red flags but you are not certain — e.g. a known contact urgently asking for money, an unusual request that doesn't fit a clear pattern.
 - LEGITIMATE: no strong fraud signals. When in doubt, verdict LEGITIMATE.
 - False positives (flagging a legitimate message as fraud) are worse than missing a fraud.
-- Keep explanation and recommendation to ONE sentence each — be concise.
-- Detect language by the SCRIPT of the message, not its topic or cultural context:
-    • English: message written entirely in Latin script → language = "english". Respond in English.
-    • Hindi: message contains Devanagari characters (क, ख, ग…) → language = "hindi". Respond in Hindi using Devanagari script.
-    • Hinglish: Latin script with Hindi words (aapka, bhai, abhi, karein, etc.) → language = "hinglish". Respond in Hinglish using LATIN SCRIPT ONLY — no Devanagari.
-  A message mentioning UPI, Rs, or KYC is NOT automatically Hindi — detect by actual script.
+- explanation: max 12 words. recommendation: max 12 words. No exceptions — cut ruthlessly.
+- SCRIPT RULE — this is absolute, no exceptions:
+    • Count whether the input message contains any Devanagari characters (क ख ग घ etc.).
+    • If YES → language = "hindi". Write explanation and recommendation in Devanagari Hindi.
+    • If NO (message is fully in Latin/Roman alphabet, even if it contains Hindi words like aapka, bhai, karein) → language = "hinglish" or "english". Write explanation and recommendation in LATIN SCRIPT ONLY. Zero Devanagari characters allowed.
+    • A message written as "Aapka account block ho jayega" is Latin script → hinglish → respond in Latin. Never switch to Devanagari for such messages.
 - Confidence should reflect real certainty — do not inflate it."""
 
 
