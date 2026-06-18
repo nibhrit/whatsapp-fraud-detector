@@ -1,5 +1,6 @@
 import os
 from contextlib import asynccontextmanager
+from typing import Literal
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -16,7 +17,7 @@ class AnalyseRequest(BaseModel):
 
 
 class AnalyseResponse(BaseModel):
-    verdict: str
+    verdict: Literal["FRAUD", "SUSPICIOUS", "LEGITIMATE"]
     confidence: int
     pattern: str
     explanation: str

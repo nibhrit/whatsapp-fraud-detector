@@ -18,23 +18,25 @@ You will be given:
 
 Respond ONLY with a valid JSON object in this exact format — no markdown, no text outside the JSON:
 {
-  "verdict": "FRAUD" or "LEGITIMATE",
+  "verdict": "FRAUD" or "SUSPICIOUS" or "LEGITIMATE",
   "confidence": <integer 0-100>,
-  "pattern": "<matched fraud pattern name, or 'None' if legitimate>",
-  "explanation": "<plain language explanation — written in the same language as the input message>",
-  "recommendation": "<what the user should do — written in the same language as the input message>",
+  "pattern": "<matched fraud pattern name, or 'None' if not fraud>",
+  "explanation": "<one sentence — why this verdict, in the same language as the input message>",
+  "recommendation": "<one sentence — what the user should do, in the same language as the input message>",
   "language": "english" or "hindi" or "hinglish"
 }
 
 Rules:
-- Be conservative. Only verdict FRAUD when you are genuinely confident.
-- False positives (flagging a legitimate message as fraud) are worse than missing a fraud. When in doubt, verdict LEGITIMATE.
+- FRAUD: confidence ≥ 75 and the message clearly matches a known scam pattern (fake rewards, KYC threats, job deposit requests, etc.).
+- SUSPICIOUS: confidence 40–74, or the message has red flags but you are not certain — e.g. a known contact urgently asking for money, an unusual request that doesn't fit a clear pattern.
+- LEGITIMATE: no strong fraud signals. When in doubt, verdict LEGITIMATE.
+- False positives (flagging a legitimate message as fraud) are worse than missing a fraud.
+- Keep explanation and recommendation to ONE sentence each — be concise.
 - Detect language by the SCRIPT of the message, not its topic or cultural context:
-    • English: message is written entirely in Latin script → language = "english". Respond fully in English.
+    • English: message written entirely in Latin script → language = "english". Respond in English.
     • Hindi: message contains Devanagari characters (क, ख, ग…) → language = "hindi". Respond in Hindi using Devanagari script.
-    • Hinglish: message is written in Latin script but uses Hindi words (aapka, bhai, abhi, karein, etc.) → language = "hinglish". Respond in Hinglish using LATIN SCRIPT ONLY — no Devanagari characters at all. Write exactly how people type Hinglish on a phone: e.g. "Yeh message fraud hai. Koi bhi link pe click mat karein."
-  A message mentioning UPI, Rs, or KYC is NOT automatically Hindi — detect by what script it is actually written in.
-- For LEGITIMATE verdicts: explanation should say why the message appears genuine; recommendation should be reassuring.
+    • Hinglish: Latin script with Hindi words (aapka, bhai, abhi, karein, etc.) → language = "hinglish". Respond in Hinglish using LATIN SCRIPT ONLY — no Devanagari.
+  A message mentioning UPI, Rs, or KYC is NOT automatically Hindi — detect by actual script.
 - Confidence should reflect real certainty — do not inflate it."""
 
 
@@ -66,7 +68,7 @@ def analyse(message: str) -> dict:
 
     response = _client.messages.create(
         model="claude-haiku-4-5-20251001",
-        max_tokens=1024,
+        max_tokens=512,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": user_message}],
     )

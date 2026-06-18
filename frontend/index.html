@@ -8,18 +8,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --wa-green:      #25D366;
-      --wa-dark:       #075E54;
-      --wa-teal:       #128C7E;
-      --wa-bg:         #ECE5DD;
-      --fraud-red:     #DC2626;
-      --fraud-bg:      #FEF2F2;
-      --legit-green:   #16A34A;
-      --legit-bg:      #F0FDF4;
-      --text:          #111827;
-      --text-secondary:#6B7280;
-      --border:        #E5E7EB;
-      --page-bg:       #F9FAFB;
+      --wa-green:         #25D366;
+      --wa-dark:          #075E54;
+      --wa-teal:          #128C7E;
+      --wa-bg:            #ECE5DD;
+      --fraud-red:        #DC2626;
+      --fraud-bg:         #FEF2F2;
+      --suspicious-amber: #D97706;
+      --suspicious-bg:    #FFFBEB;
+      --legit-green:      #16A34A;
+      --legit-bg:         #F0FDF4;
+      --text:             #111827;
+      --text-secondary:   #6B7280;
+      --border:           #E5E7EB;
+      --page-bg:          #F9FAFB;
     }
 
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--text); background: #fff; }
@@ -68,9 +70,7 @@
     }
     .hero-cta:hover { background: var(--wa-teal); }
 
-    /* stats row */
     .stats { display: flex; gap: 32px; margin-top: 40px; }
-    .stat-item { }
     .stat-num { font-size: 28px; font-weight: 800; color: var(--wa-green); }
     .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
 
@@ -97,7 +97,8 @@
       display: inline-block; background: var(--fraud-red); color: white;
       font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-top: 5px; font-weight: 600;
     }
-    .mini-badge.safe { background: var(--legit-green); }
+    .mini-badge.safe       { background: var(--legit-green); }
+    .mini-badge.suspicious { background: var(--suspicious-amber); }
 
     /* ── How it works ─────────────────────────────────────── */
     .section { padding: 64px 48px; max-width: 1100px; margin: 0 auto; }
@@ -132,93 +133,131 @@
     .eval-label { font-size: 13px; opacity: .7; margin-top: 2px; }
 
     /* ── Demo section ─────────────────────────────────────── */
-    .demo-section { padding: 72px 48px; max-width: 1100px; margin: 0 auto; }
-    .demo-layout { display: grid; grid-template-columns: 1fr 480px; gap: 48px; align-items: start; }
+    .demo-section { padding: 72px 48px; max-width: 1200px; margin: 0 auto; }
+    .demo-layout { display: grid; grid-template-columns: 1fr 560px; gap: 48px; align-items: start; }
     .demo-copy h2 { font-size: 30px; font-weight: 800; margin-bottom: 12px; }
     .demo-copy p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
     .demo-tip { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #166534; }
     .demo-tip strong { display: block; margin-bottom: 4px; }
 
-    /* ── WhatsApp UI ──────────────────────────────────────── */
-    .wa-wrap { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,.12); border: 1px solid rgba(0,0,0,.06); }
-    .wa-header {
-      background: var(--wa-dark); padding: 12px 16px;
-      display: flex; align-items: center; gap: 12px; color: white;
+    /* verdict legend */
+    .verdict-legend { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+    .legend-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .legend-dot.fraud       { background: var(--fraud-red); }
+    .legend-dot.suspicious  { background: var(--suspicious-amber); }
+    .legend-dot.legit       { background: var(--legit-green); }
+
+    /* ── WhatsApp UI shell ────────────────────────────────── */
+    .wa-wrap {
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12); border: 1px solid rgba(0,0,0,.06);
+      display: flex; height: 560px;
     }
-    .wa-avatar { width: 38px; height: 38px; background: #ffffff25; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .wa-contact-name { font-weight: 600; font-size: 15px; }
-    .wa-contact-sub { font-size: 12px; opacity: .7; }
-    .wa-actions { margin-left: auto; display: flex; gap: 16px; opacity: .7; font-size: 18px; cursor: default; }
+
+    /* Sidebar */
+    .wa-sidebar { width: 185px; flex-shrink: 0; background: #fff; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .wa-sidebar-header {
+      background: var(--wa-dark); padding: 14px 14px;
+      color: white; font-weight: 700; font-size: 14px;
+      display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+    }
+    .chat-list { flex: 1; overflow-y: auto; }
+    .chat-item {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 10px; cursor: pointer;
+      border-bottom: 1px solid var(--border); transition: background .15s;
+    }
+    .chat-item:hover { background: #f5f5f5; }
+    .chat-item.active { background: #E8F5E9; border-left: 3px solid var(--wa-green); }
+    .chat-item-avatar {
+      width: 34px; height: 34px; background: var(--wa-bg); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+    }
+    .chat-item-info { flex: 1; min-width: 0; }
+    .chat-item-name { font-size: 12px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .chat-item-preview { font-size: 11px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+    .chat-item-time { font-size: 10px; color: var(--text-secondary); flex-shrink: 0; align-self: flex-start; margin-top: 1px; }
+
+    /* Main chat area */
+    .wa-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .wa-header {
+      background: var(--wa-dark); padding: 11px 14px;
+      display: flex; align-items: center; gap: 10px; color: white; flex-shrink: 0;
+    }
+    .wa-avatar { width: 36px; height: 36px; background: #ffffff25; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
+    .wa-contact-name { font-weight: 600; font-size: 14px; }
+    .wa-contact-sub { font-size: 11px; opacity: .7; }
+    .wa-actions { margin-left: auto; display: flex; gap: 14px; opacity: .7; font-size: 17px; cursor: default; }
 
     .wa-messages {
-      background: var(--wa-bg); padding: 16px; overflow-y: auto; height: 420px;
+      flex: 1; background: var(--wa-bg); padding: 14px; overflow-y: auto;
       display: flex; flex-direction: column; gap: 10px;
     }
-    .wa-msg-wrap { display: flex; flex-direction: column; max-width: 80%; }
+    .wa-msg-wrap { display: flex; flex-direction: column; max-width: 88%; }
     .wa-bubble {
-      background: white; border-radius: 8px 8px 8px 0; padding: 9px 13px;
-      box-shadow: 0 1px 2px rgba(0,0,0,.08); font-size: 14px; line-height: 1.5;
+      background: white; border-radius: 8px 8px 8px 0; padding: 8px 11px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.08); font-size: 13px; line-height: 1.5;
     }
-    .wa-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
-    .wa-time { font-size: 11px; color: var(--text-secondary); }
-    .wa-sender-name { font-size: 11px; color: var(--wa-teal); font-weight: 600; }
+    .wa-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; }
+    .wa-time { font-size: 10px; color: var(--text-secondary); }
+    .wa-sender-name { font-size: 10px; color: var(--wa-teal); font-weight: 600; }
 
     .shield-btn {
       display: inline-flex; align-items: center; gap: 5px;
       background: none; border: 1px solid var(--wa-green); color: var(--wa-teal);
-      border-radius: 14px; padding: 4px 11px; font-size: 12px; font-weight: 600;
-      cursor: pointer; margin-top: 6px; transition: all .15s;
+      border-radius: 14px; padding: 4px 10px; font-size: 11px; font-weight: 600;
+      cursor: pointer; margin-top: 5px; transition: all .15s;
     }
     .shield-btn:hover { background: var(--wa-green); color: white; }
     .shield-btn:disabled { opacity: .5; cursor: default; }
 
-    /* result card */
+    /* Result cards — three tiers */
     .result-card {
-      margin-top: 8px; border-radius: 10px; padding: 14px 16px;
-      border-left: 4px solid; font-size: 13px; line-height: 1.5; animation: slideIn .25s ease;
+      margin-top: 8px; border-radius: 10px; padding: 11px 13px;
+      border-left: 4px solid; font-size: 12px; line-height: 1.5; animation: slideIn .25s ease;
     }
-    @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-    .result-card.fraud   { background: var(--fraud-bg); border-left-color: var(--fraud-red); }
-    .result-card.legit   { background: var(--legit-bg); border-left-color: var(--legit-green); }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+    .result-card.fraud       { background: var(--fraud-bg);      border-left-color: var(--fraud-red); }
+    .result-card.suspicious  { background: var(--suspicious-bg); border-left-color: var(--suspicious-amber); }
+    .result-card.legit       { background: var(--legit-bg);      border-left-color: var(--legit-green); }
 
-    .result-verdict {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
-    }
+    .result-verdict { display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
     .verdict-badge {
-      padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 700;
+      padding: 2px 9px; border-radius: 10px; font-size: 10px; font-weight: 700;
       color: white; text-transform: uppercase; letter-spacing: .05em;
     }
-    .fraud   .verdict-badge { background: var(--fraud-red); }
-    .legit   .verdict-badge { background: var(--legit-green); }
-    .verdict-conf { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+    .fraud      .verdict-badge { background: var(--fraud-red); }
+    .suspicious .verdict-badge { background: var(--suspicious-amber); }
+    .legit      .verdict-badge { background: var(--legit-green); }
+    .verdict-conf { font-size: 11px; color: var(--text-secondary); }
 
-    .result-pattern { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
-    .fraud  .result-pattern { color: var(--fraud-red); }
-    .legit  .result-pattern { color: var(--legit-green); }
+    .result-pattern { font-weight: 700; font-size: 11px; margin-bottom: 5px; }
+    .fraud      .result-pattern { color: var(--fraud-red); }
+    .suspicious .result-pattern { color: var(--suspicious-amber); }
+    .legit      .result-pattern { color: var(--legit-green); }
 
-    .result-section { margin-bottom: 8px; }
-    .result-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-secondary); margin-bottom: 2px; }
-    .result-text { font-size: 13px; color: var(--text); }
-
-    .result-lang { font-size: 11px; color: var(--text-secondary); margin-top: 8px; font-style: italic; }
+    .result-section { margin-bottom: 5px; }
+    .result-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text-secondary); margin-bottom: 1px; }
+    .result-text { font-size: 12px; color: var(--text); }
+    .result-lang { font-size: 10px; color: var(--text-secondary); margin-top: 5px; font-style: italic; }
 
     /* spinner */
-    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #ccc; border-top-color: var(--wa-green); border-radius: 50%; animation: spin .6s linear infinite; }
+    .spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid #ccc; border-top-color: var(--wa-green); border-radius: 50%; animation: spin .6s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* input area */
     .wa-input-area {
-      background: #F0F0F0; padding: 10px 12px;
-      display: flex; gap: 8px; align-items: center; border-top: 1px solid #DDD;
+      background: #F0F0F0; padding: 9px 11px;
+      display: flex; gap: 7px; align-items: center; border-top: 1px solid #DDD; flex-shrink: 0;
     }
     .wa-input {
-      flex: 1; border: none; border-radius: 20px; padding: 9px 14px;
-      font-size: 14px; outline: none; background: white;
-      font-family: inherit;
+      flex: 1; border: none; border-radius: 18px; padding: 8px 12px;
+      font-size: 13px; outline: none; background: white; font-family: inherit;
     }
     .wa-send-btn {
-      width: 38px; height: 38px; background: var(--wa-green); border: none;
-      border-radius: 50%; color: white; font-size: 16px; cursor: pointer;
+      width: 36px; height: 36px; background: var(--wa-green); border: none;
+      border-radius: 50%; color: white; font-size: 15px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: background .15s; flex-shrink: 0;
     }
@@ -233,7 +272,6 @@
     footer a { color: var(--wa-green); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    /* ── Utilities ────────────────────────────────────────── */
     .divider { border: none; border-top: 1px solid var(--border); }
     .scroll-target { scroll-margin-top: 60px; }
   </style>
@@ -294,17 +332,17 @@
           <div class="mini-bubble">
             Congratulations! Your UPI has been selected for a Rs 50,000 reward. Claim here: upi-reward.xyz
             <div class="mini-time">10:24 AM</div>
-            <div class="mini-badge">🔴 FRAUD DETECTED</div>
+            <div class="mini-badge">🔴 FRAUD</div>
           </div>
-          <div class="mini-bubble" style="align-self:flex-end; border-radius: 8px 8px 0 8px; background:#DCF8C6;">
-            Bhai kal cricket dekhne chalein?
+          <div class="mini-bubble">
+            Bhai please Rs 2000 bhej de UPI pe, wallet band ho gaya urgently
             <div class="mini-time">11:05 AM</div>
-            <div class="mini-badge safe">✅ SAFE</div>
+            <div class="mini-badge suspicious">🟡 SUSPICIOUS</div>
           </div>
           <div class="mini-bubble">
             Your KYC is expiring. Account will be blocked in 24 hrs.
             <div class="mini-time">11:47 AM</div>
-            <div class="mini-badge">🔴 FRAUD DETECTED</div>
+            <div class="mini-badge">🔴 FRAUD</div>
           </div>
         </div>
       </div>
@@ -331,7 +369,7 @@
     <div class="step">
       <div class="step-num">3</div>
       <h3>Instant verdict, in your language</h3>
-      <p>Fraud or safe — with a plain-language explanation and a clear action to take. Delivered in English, Hindi, or Hinglish based on how you wrote.</p>
+      <p>Fraud, suspicious, or safe — with a plain one-sentence explanation and a clear action to take. Delivered in English, Hindi, or Hinglish automatically.</p>
     </div>
   </div>
 </section>
@@ -403,37 +441,52 @@
   <div class="demo-layout">
     <div class="demo-copy">
       <h2>This is what native WhatsApp integration would look like.</h2>
-      <p>The AI Shield is not a separate app. It lives inside the conversation. Tap the shield on any message to analyse it. Or paste a message from your own inbox at the bottom.</p>
-      <p>The detector responds in the language of the message — automatically. No settings, no selection.</p>
+      <p>Browse the chat list on the left — each chat is a different real-world scenario. Tap the shield on any message to get an instant AI verdict. Or add your own message at the bottom.</p>
+      <p>The AI gives three verdicts — Fraud, Suspicious, or Safe — and responds in the language of the message automatically.</p>
       <div class="demo-tip">
         <strong>💡 How to use</strong>
-        Tap the <strong>🛡 Analyse</strong> button on any incoming message. Or type / paste a message at the bottom and press send to add it to the chat.
+        Click a chat in the sidebar, then tap <strong>🛡 Analyse</strong> on any incoming message.
       </div>
       <div class="demo-tip" style="margin-top:12px; background:#FEF3C7; border-color:#F59E0B; color:#92400E;">
-        <strong>⚙️ Backend required</strong>
-        Make sure the backend is running locally:<br/>
-        <code style="font-size:12px; font-family:monospace;">cd backend && python3 -m uvicorn main:app</code>
+        <strong>⏱️ First request may take ~30s</strong>
+        The backend runs on Render free tier and sleeps after inactivity. Click Analyse — if it times out, wait 30s and retry.
+      </div>
+      <div class="verdict-legend">
+        <div class="legend-item"><div class="legend-dot fraud"></div> <strong>Fraud</strong> — high confidence scam, do not engage</div>
+        <div class="legend-item"><div class="legend-dot suspicious"></div> <strong>Suspicious</strong> — red flags present, verify before acting</div>
+        <div class="legend-item"><div class="legend-dot legit"></div> <strong>Safe</strong> — appears genuine</div>
       </div>
     </div>
 
     <!-- WhatsApp UI -->
     <div>
       <div class="wa-wrap">
-        <div class="wa-header">
-          <div class="wa-avatar">👥</div>
-          <div>
-            <div class="wa-contact-name">Inbox — AI Shield Active</div>
-            <div class="wa-contact-sub">Tap 🛡 on any message to analyse</div>
+
+        <!-- Sidebar -->
+        <div class="wa-sidebar">
+          <div class="wa-sidebar-header">💬 Chats</div>
+          <div class="chat-list" id="chat-sidebar"></div>
+        </div>
+
+        <!-- Main chat area -->
+        <div class="wa-main">
+          <div class="wa-header">
+            <div class="wa-avatar" id="wa-contact-avatar">👤</div>
+            <div>
+              <div class="wa-contact-name" id="wa-contact-name">Select a chat</div>
+              <div class="wa-contact-sub">AI Shield Active</div>
+            </div>
+            <div class="wa-actions">🔍 ⋮</div>
           </div>
-          <div class="wa-actions">🔍 ⋮</div>
+
+          <div class="wa-messages" id="wa-messages"></div>
+
+          <div class="wa-input-area">
+            <input class="wa-input" id="msg-input" type="text" placeholder="Paste a suspicious message to test…" />
+            <button class="wa-send-btn" onclick="addUserMessage()" title="Add to chat">➤</button>
+          </div>
         </div>
 
-        <div class="wa-messages" id="wa-messages"></div>
-
-        <div class="wa-input-area">
-          <input class="wa-input" id="msg-input" type="text" placeholder="Paste a suspicious message to test…" />
-          <button class="wa-send-btn" onclick="addUserMessage()" title="Add to chat">➤</button>
-        </div>
       </div>
     </div>
   </div>
@@ -452,152 +505,229 @@
 
 <script>
   // ── Config ──────────────────────────────────────────────
-  const API_URL = "https://whatsapp-fraud-detector.onrender.com"; // swap to Render URL after deployment
+  const API_URL = "https://whatsapp-fraud-detector.onrender.com";
 
-  // ── Pre-loaded messages ──────────────────────────────────
-  const PRELOADED = [
+  // ── Chat data ────────────────────────────────────────────
+  const CHATS = [
     {
-      sender: "+91 98765 00001",
-      time: "10:24 AM",
-      text: "Congratulations! Your UPI ID has been selected for a special reward of Rs 50,000. Click here to claim: http://upi-reward.xyz/verify"
+      id: 'upi',
+      contact: '+91 98765 00001',
+      avatar: '👤',
+      time: '10:24 AM',
+      preview: 'Congratulations! Your UPI...',
+      messages: [
+        {
+          id: 'upi_0',
+          sender: '+91 98765 00001',
+          time: '10:24 AM',
+          text: 'Congratulations! Your UPI ID has been selected for a special reward of Rs 50,000. Click here to claim: http://upi-reward.xyz/verify'
+        }
+      ]
     },
     {
-      sender: "+91 98765 00002",
-      time: "11:05 AM",
-      text: "Aapka KYC expire ho raha hai. 24 ghante mein update nahi kiya toh account block ho jayega. Abhi update karein."
+      id: 'bank',
+      contact: 'SBI Bank Alert',
+      avatar: '🏦',
+      time: '1:14 PM',
+      preview: 'RBI ki taraf se urgent...',
+      messages: [
+        {
+          id: 'bank_0',
+          sender: 'SBI Bank Alert',
+          time: '1:14 PM',
+          text: 'RBI ki taraf se urgent notice: Aapke account mein suspicious transactions detect hui hain. Rs 5,000 penalty bhejein warna legal case hoga.'
+        }
+      ]
     },
     {
-      sender: "Swiggy",
-      time: "11:47 AM",
-      text: "Your OTP for Swiggy login is 847291. Valid for 10 minutes. Do not share with anyone."
+      id: 'rahul',
+      contact: 'Rahul',
+      avatar: '🙂',
+      time: '12:45 PM',
+      preview: 'Bhai mujhe paise ki zarurat...',
+      messages: [
+        {
+          id: 'rahul_0',
+          sender: 'Rahul',
+          time: '12:32 PM',
+          text: 'Bhai kal cricket dekhne chalein? India vs Australia ka match hai, mere paas ek extra ticket bhi hai.'
+        },
+        {
+          id: 'rahul_1',
+          sender: 'Rahul',
+          time: '12:45 PM',
+          text: 'Bhai mujhe paise ki bahut zarurat hai abhi. Mera wallet band ho gaya. Please Rs 2,000 bhej de is UPI pe — rahul.sharma@ybl. Kal wapas kar dunga.'
+        }
+      ]
     },
     {
-      sender: "+91 98765 00003",
-      time: "12:15 PM",
-      text: "Hi, I am Priya from Amazon HR. You have been shortlisted for a Work From Home role. Salary: Rs 55,000/month. Send Rs 1,000 security deposit to confirm your seat."
-    },
-    {
-      sender: "Rahul",
-      time: "12:32 PM",
-      text: "Bhai kal cricket dekhne chalein? India vs Australia ka match hai, mere paas ek extra ticket bhi hai."
-    },
-    {
-      sender: "+91 98765 00004",
-      time: "1:14 PM",
-      text: "RBI ki taraf se urgent notice: Aapke account mein suspicious transactions detect hui hain. Rs 5,000 penalty bhejein warna legal case hoga."
+      id: 'job',
+      contact: 'Priya — Amazon HR',
+      avatar: '💼',
+      time: '12:15 PM',
+      preview: 'Hi, I am Priya from Amazon...',
+      messages: [
+        {
+          id: 'job_0',
+          sender: 'Priya — Amazon HR',
+          time: '12:15 PM',
+          text: 'Hi, I am Priya from Amazon HR. You have been shortlisted for a Work From Home role. Salary: Rs 55,000/month. Send Rs 1,000 security deposit to confirm your seat.'
+        }
+      ]
     }
   ];
 
-  // ── Render messages on load ─────────────────────────────
-  function init() {
-    PRELOADED.forEach((msg, i) => addMessage(msg.sender, msg.time, msg.text, i));
+  // ── State ────────────────────────────────────────────────
+  let activeChat = CHATS[0].id;
+  const analysisResults = {};
+  let customCounter = 1000;
+
+  // ── Helpers ──────────────────────────────────────────────
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
   }
 
-  function addMessage(sender, time, text, id) {
-    const container = document.getElementById("wa-messages");
-
-    const wrap = document.createElement("div");
-    wrap.className = "wa-msg-wrap";
-    wrap.id = `msg-${id}`;
-
-    wrap.innerHTML = `
-      <div>
-        <div class="wa-sender-name">${sender}</div>
-        <div class="wa-bubble">${text}</div>
-        <div class="wa-meta">
-          <span class="wa-time">${time}</span>
+  // ── Sidebar ──────────────────────────────────────────────
+  function renderSidebar() {
+    document.getElementById('chat-sidebar').innerHTML = CHATS.map(chat => `
+      <div class="chat-item ${chat.id === activeChat ? 'active' : ''}" onclick="switchChat('${chat.id}')">
+        <div class="chat-item-avatar">${chat.avatar}</div>
+        <div class="chat-item-info">
+          <div class="chat-item-name">${escapeHtml(chat.contact)}</div>
+          <div class="chat-item-preview">${escapeHtml(chat.preview)}</div>
         </div>
-        <button class="shield-btn" onclick="analyse(${id}, this)" id="shield-${id}">
-          🛡 Analyse
-        </button>
+        <div class="chat-item-time">${chat.time}</div>
       </div>
-      <div id="result-${id}"></div>
-    `;
+    `).join('');
+  }
 
-    container.appendChild(wrap);
+  function switchChat(chatId) {
+    activeChat = chatId;
+    renderSidebar();
+    renderChatArea();
+  }
+
+  // ── Chat area ────────────────────────────────────────────
+  function renderChatArea() {
+    const chat = CHATS.find(c => c.id === activeChat);
+    document.getElementById('wa-contact-avatar').textContent = chat.avatar;
+    document.getElementById('wa-contact-name').textContent = chat.contact;
+    const container = document.getElementById('wa-messages');
+    container.innerHTML = '';
+    chat.messages.forEach(msg => appendMessage(msg, container));
     container.scrollTop = container.scrollHeight;
   }
 
-  // ── Add message from input ──────────────────────────────
-  let customCount = 100;
-  function addUserMessage() {
-    const input = document.getElementById("msg-input");
-    const text = input.value.trim();
-    if (!text) return;
-    input.value = "";
-    const id = customCount++;
-    const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    addMessage("You (testing)", time, text, id);
+  function appendMessage(msg, container) {
+    const hasResult = !!analysisResults[msg.id];
+    const wrap = document.createElement('div');
+    wrap.className = 'wa-msg-wrap';
+    wrap.id = `wrap-${msg.id}`;
+    wrap.innerHTML = `
+      <div>
+        <div class="wa-sender-name">${escapeHtml(msg.sender)}</div>
+        <div class="wa-bubble">${escapeHtml(msg.text)}</div>
+        <div class="wa-meta">
+          <span class="wa-time">${msg.time}</span>
+        </div>
+        ${hasResult ? '' : `<button class="shield-btn" onclick="analyseMsg('${msg.id}', this)" id="shield-${msg.id}">🛡 Analyse</button>`}
+      </div>
+      <div id="result-${msg.id}">${hasResult ? buildResultHTML(analysisResults[msg.id]) : ''}</div>
+    `;
+    container.appendChild(wrap);
   }
 
-  document.getElementById("msg-input").addEventListener("keydown", e => {
-    if (e.key === "Enter") addUserMessage();
+  // ── Add user message to active chat ─────────────────────
+  function addUserMessage() {
+    const input = document.getElementById('msg-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+
+    const chat = CHATS.find(c => c.id === activeChat);
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const msg = { id: `custom_${customCounter++}`, sender: 'You (testing)', time, text };
+    chat.messages.push(msg);
+    chat.preview = text.slice(0, 28) + (text.length > 28 ? '…' : '');
+    chat.time = time;
+
+    const container = document.getElementById('wa-messages');
+    appendMessage(msg, container);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  document.getElementById('msg-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addUserMessage();
   });
 
-  // ── Analyse a message ───────────────────────────────────
-  async function analyse(id, btn) {
-    const msgWrap = document.getElementById(`msg-${id}`);
-    const bubble  = msgWrap.querySelector(".wa-bubble");
-    const result  = document.getElementById(`result-${id}`);
-    const message = bubble.innerText;
+  // ── Analyse a message ────────────────────────────────────
+  async function analyseMsg(msgId, btn) {
+    const wrap = document.getElementById(`wrap-${msgId}`);
+    const text = wrap.querySelector('.wa-bubble').innerText;
+    const resultEl = document.getElementById(`result-${msgId}`);
 
     btn.disabled = true;
     btn.innerHTML = `<span class="spinner"></span> Analysing…`;
-    result.innerHTML = "";
+    resultEl.innerHTML = '';
 
     try {
       const resp = await fetch(`${API_URL}/analyse`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message })
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
       });
-
-      if (!resp.ok) throw new Error("API error");
+      if (!resp.ok) throw new Error('API error');
       const data = await resp.json();
-      renderResult(id, data);
-      btn.style.display = "none";
+
+      analysisResults[msgId] = data;
+      resultEl.innerHTML = buildResultHTML(data);
+      btn.style.display = 'none';
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     } catch (err) {
-      result.innerHTML = `
-        <div class="result-card" style="background:#FFF3CD; border-left-color:#F59E0B; color:#92400E; font-size:13px;">
-          ⚠️ Could not reach the backend. Make sure it's running:<br/>
-          <code style="font-family:monospace; font-size:12px;">cd backend && python3 -m uvicorn main:app</code>
+      resultEl.innerHTML = `
+        <div class="result-card" style="background:#FFF3CD; border-left-color:#F59E0B; color:#92400E; font-size:12px;">
+          ⚠️ Could not reach the backend — first request may take ~30s to wake up. Wait and retry.
         </div>`;
       btn.disabled = false;
-      btn.innerHTML = "🛡 Retry";
+      btn.innerHTML = '🛡 Retry';
     }
   }
 
-  function renderResult(id, data) {
-    const isfraud = data.verdict === "FRAUD";
-    const cls     = isfraud ? "fraud" : "legit";
-    const icon    = isfraud ? "🔴" : "🟢";
-    const pattern = data.pattern && data.pattern !== "None" ? data.pattern : "";
+  // ── Build result card HTML ───────────────────────────────
+  function buildResultHTML(data) {
+    const v = data.verdict;
+    const cls  = v === 'FRAUD' ? 'fraud' : v === 'SUSPICIOUS' ? 'suspicious' : 'legit';
+    const icon = v === 'FRAUD' ? '🔴' : v === 'SUSPICIOUS' ? '🟡' : '🟢';
+    const pattern = data.pattern && data.pattern !== 'None' ? data.pattern : '';
 
-    document.getElementById(`result-${id}`).innerHTML = `
+    return `
       <div class="result-card ${cls}">
         <div class="result-verdict">
-          <span class="verdict-badge">${icon} ${data.verdict}</span>
+          <span class="verdict-badge">${icon} ${escapeHtml(v)}</span>
           <span class="verdict-conf">${data.confidence}% confidence</span>
         </div>
-        ${pattern ? `<div class="result-pattern">${pattern}</div>` : ""}
+        ${pattern ? `<div class="result-pattern">${escapeHtml(pattern)}</div>` : ''}
         <div class="result-section">
           <div class="result-label">Why</div>
-          <div class="result-text">${data.explanation}</div>
+          <div class="result-text">${escapeHtml(data.explanation)}</div>
         </div>
         <div class="result-section">
           <div class="result-label">What to do</div>
-          <div class="result-text">${data.recommendation}</div>
+          <div class="result-text">${escapeHtml(data.recommendation)}</div>
         </div>
-        <div class="result-lang">Detected language: ${data.language}</div>
+        <div class="result-lang">Detected: ${escapeHtml(data.language)}</div>
       </div>`;
-
-    // scroll result into view
-    document.getElementById(`result-${id}`).scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
-  init();
+  // ── Init ─────────────────────────────────────────────────
+  renderSidebar();
+  renderChatArea();
 </script>
 </body>
 </html>
