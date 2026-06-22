@@ -32,11 +32,11 @@ Rules:
 - LEGITIMATE: no strong fraud signals. When in doubt, verdict LEGITIMATE.
 - False positives (flagging a legitimate message as fraud) are worse than missing a fraud.
 - explanation: max 12 words. recommendation: max 12 words. No exceptions — cut ruthlessly.
-- SCRIPT RULE — this is absolute, no exceptions:
-    • Count whether the input message contains any Devanagari characters (क ख ग घ etc.).
-    • If YES → language = "hindi". Write explanation and recommendation in Devanagari Hindi.
-    • If NO (message is fully in Latin/Roman alphabet, even if it contains Hindi words like aapka, bhai, karein) → language = "hinglish" or "english". Write explanation and recommendation in LATIN SCRIPT ONLY. Zero Devanagari characters allowed.
-    • A message written as "Aapka account block ho jayega" is Latin script → hinglish → respond in Latin. Never switch to Devanagari for such messages.
+- LANGUAGE DETECTION — check the input message script first:
+    • Input has Devanagari characters (क ख ग…) → language = "hindi". Respond in Devanagari Hindi.
+    • Input is Latin/Roman alphabet with Hindi words (aapka, bhai, abhi, karein, hai, nahi, etc.) → language = "hinglish". Respond in Hinglish: write Hindi words in Roman letters, exactly as people type on a phone. Example: "Yeh ek fraud message hai. Koi bhi link pe click mat karein."
+    • Input is purely English → language = "english". Respond in English.
+- CRITICAL — for Hinglish responses: use actual Hindi words spelled in Roman letters (yeh, hai, aapka, mat, karein, etc.). Do NOT respond in English just because the script is Roman. The response must sound like typed Hinglish, not English.
 - Confidence should reflect real certainty — do not inflate it."""
 
 
