@@ -16,27 +16,31 @@ You will be given:
 1. The message to analyse
 2. The 3 most semantically similar fraud patterns from a knowledge base — use these as reference, but similarity alone is not proof of fraud
 
-Respond ONLY with a valid JSON object in this exact format — no markdown, no text outside the JSON:
+STEP 1 — Detect language from the input message script:
+- Any Devanagari characters present (क ख ग…) → language = "hindi"
+- No Devanagari, but Hindi words in Roman script (bhai, aapka, hai, karein, abhi, nahi, etc.) → language = "hinglish"
+- Fully English → language = "english"
+
+STEP 2 — Write explanation and recommendation in that language:
+- hindi → Devanagari script. Example: "यह एक KYC घोटाला है।"
+- hinglish → Roman letters but Hindi words, like you are typing on WhatsApp. Example explanation: "Yeh ek fraud hai, aapko dara ke paise maange ja rahe hain." Example recommendation: "Koi bhi link pe click mat karein."
+- english → Plain English.
+
+STEP 3 — Respond ONLY with a valid JSON object, no markdown, no text outside the JSON:
 {
   "verdict": "FRAUD" or "SUSPICIOUS" or "LEGITIMATE",
   "confidence": <integer 0-100>,
   "pattern": "<matched fraud pattern name, or 'None' if not fraud>",
-  "explanation": "<one sentence — why this verdict, in the same language as the input message>",
-  "recommendation": "<one sentence — what the user should do, in the same language as the input message>",
-  "language": "english" or "hindi" or "hinglish"
+  "explanation": "<max 12 words, in the language from STEP 1>",
+  "recommendation": "<max 12 words, in the language from STEP 1>",
+  "language": "<from STEP 1>"
 }
 
-Rules:
-- FRAUD: confidence ≥ 75 and the message clearly matches a known scam pattern (fake rewards, KYC threats, job deposit requests, etc.).
-- SUSPICIOUS: confidence 40–74, or the message has red flags but you are not certain — e.g. a known contact urgently asking for money, an unusual request that doesn't fit a clear pattern.
+Verdict rules:
+- FRAUD: confidence ≥ 75, clear match to a known scam pattern.
+- SUSPICIOUS: confidence 40–74, red flags present but not certain.
 - LEGITIMATE: no strong fraud signals. When in doubt, verdict LEGITIMATE.
-- False positives (flagging a legitimate message as fraud) are worse than missing a fraud.
-- explanation: max 12 words. recommendation: max 12 words. No exceptions — cut ruthlessly.
-- LANGUAGE DETECTION — check the input message script first:
-    • Input has Devanagari characters (क ख ग…) → language = "hindi". Respond in Devanagari Hindi.
-    • Input is Latin/Roman alphabet with Hindi words (aapka, bhai, abhi, karein, hai, nahi, etc.) → language = "hinglish". Respond in Hinglish: write Hindi words in Roman letters, exactly as people type on a phone. Example: "Yeh ek fraud message hai. Koi bhi link pe click mat karein."
-    • Input is purely English → language = "english". Respond in English.
-- CRITICAL — for Hinglish responses: use actual Hindi words spelled in Roman letters (yeh, hai, aapka, mat, karein, etc.). Do NOT respond in English just because the script is Roman. The response must sound like typed Hinglish, not English.
+- False positives are worse than missed fraud.
 - Confidence should reflect real certainty — do not inflate it."""
 
 
