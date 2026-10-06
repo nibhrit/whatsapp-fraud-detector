@@ -42,7 +42,9 @@ app.add_middleware(
 
 
 @app.get("/")
+@app.head("/")
 @app.get("/health")
+@app.head("/health")
 def health():
     return {"status": "ok"}
 
