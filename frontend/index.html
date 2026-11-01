@@ -302,12 +302,12 @@
     <div>
       <div class="hero-tag">🇮🇳 Built for Indian WhatsApp users</div>
       <h1>What if WhatsApp could warn you <span>before</span> you fell for a scam?</h1>
-      <p>1 in 3 Indians has received a fraud message on WhatsApp. The only solution today is user education — entirely reactive. This prototype demonstrates an AI layer that detects scams before the user acts.</p>
+      <p>Fraud messages are one of India's fastest-growing digital harms, and WhatsApp is the primary attack surface. The only solution today is user education — entirely reactive. This prototype demonstrates an AI layer that detects scams before the user acts.</p>
       <a href="#demo" class="hero-cta">Try the live demo ↓</a>
       <div class="stats">
         <div class="stat-item">
           <div class="stat-num">30/30</div>
-          <div class="stat-label">Eval accuracy</div>
+          <div class="stat-label">Test accuracy</div>
         </div>
         <div class="stat-item">
           <div class="stat-num">0%</div>
@@ -413,12 +413,12 @@
 
 <!-- Evals strip -->
 <div class="evals-strip">
-  <h2 style="font-size:22px; font-weight:800;">Evaluated against 30 real-world messages</h2>
-  <p>15 fraud + 15 legitimate · English, Hindi, and Hinglish · Designed to catch false positives</p>
+  <h2 style="font-size:22px; font-weight:800;">Evaluated against 30 hand-crafted test cases</h2>
+  <p>15 fraud + 15 legitimate · English, Hindi, and Hinglish · Synthetic test set designed to stress-test false positives</p>
   <div class="evals-nums">
     <div>
       <div class="eval-num">100%</div>
-      <div class="eval-label">Accuracy</div>
+      <div class="eval-label">Test Accuracy</div>
     </div>
     <div>
       <div class="eval-num">0%</div>
@@ -433,6 +433,7 @@
       <div class="eval-label">Precision</div>
     </div>
   </div>
+  <p style="font-size:12px; opacity:0.55; margin-top:20px; max-width:540px; margin-left:auto; margin-right:auto; line-height:1.6;">★ Primary metric. Test cases are hand-crafted to cover known fraud patterns and realistic legitimate messages (OTPs, delivery notifications, casual Hinglish). Synthetic eval — real-world accuracy will vary as scam language evolves. <strong>A production deployment would require ongoing adversarial red-teaming and blind evaluation against real reported fraud samples.</strong></p>
 </div>
 
 <!-- Demo -->
